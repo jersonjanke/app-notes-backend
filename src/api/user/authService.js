@@ -32,6 +32,10 @@ const login = (req, res, next) => {
   })
 }
 
+const hello = (req, res, next) => {
+  eturn res.status(200).send({ name: ['Hello!'] })
+}
+
 const validateToken = (req, res, next) => {
   const token = req.body.token || ''
 
@@ -84,4 +88,4 @@ const signup = (req, res, next) => {
   })
 }
 
-module.exports = { login, signup, validateToken }
+module.exports = { login, signup, validateToken, hello }
