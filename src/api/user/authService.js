@@ -33,7 +33,7 @@ const login = (req, res, next) => {
 }
 
 const hello = (req, res, next) => {
-  eturn res.status(200).send({ name: ['Hello!'] })
+  return res.status(200).send({ name: ['Hello!'] })
 }
 
 const validateToken = (req, res, next) => {
