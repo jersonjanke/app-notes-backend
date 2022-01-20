@@ -1,5 +1,6 @@
 const express = require('express')
 const auth = require('./auth')
+const scoreService = require('../api/score/scoreService')
 
 module.exports = function (server) {
   /*
@@ -9,6 +10,7 @@ module.exports = function (server) {
   server.use('/api', protectedApi)
 
   protectedApi.use(auth)
+  scoreService.register(protectedApi, '/score')
 
   /*
    * Rotas abertas

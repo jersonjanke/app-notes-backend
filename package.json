@@ -1,18 +1,19 @@
 {
-  "name": "my-money-backend",
+  "name": "app-hello",
   "version": "1.0.0",
   "description": "",
-  "main": "src/loader.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "dev": "nodemon",
-    "production": "pm2 start src/loader.js --name my-money-backend"
+    "production": "pm2 start src/index.js --app-hello"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.15.2",
+    "dotenv": "^14.2.0",
     "express": "^4.14.0",
     "express-query-int": "^1.0.1",
     "jsonwebtoken": "^7.3.0",

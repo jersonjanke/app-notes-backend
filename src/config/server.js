@@ -1,5 +1,4 @@
-const port = 80
-
+require('dotenv').config()
 const bodyParser = require('body-parser')
 const express = require('express')
 const server = express()
@@ -11,8 +10,10 @@ server.use(bodyParser.json())
 server.use(allowCors)
 server.use(queryParser())
 
-server.listen(port, '0.0.0.0', function () {
-  console.log(`BACKEND is running on port ${port}.`)
+const PORT = process.env.PORT || 8080
+server.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`)
+  console.log('Press Ctrl+C to quit.')
 })
 
 module.exports = server
