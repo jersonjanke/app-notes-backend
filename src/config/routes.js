@@ -22,5 +22,5 @@ module.exports = function (server) {
   openApi.post('/login', AuthService.login)
   openApi.post('/signup', AuthService.signup)
   openApi.post('/validateToken', AuthService.validateToken)
-  openApi.get('/hello', AuthService.hello)
+  openApi.post('/change-password', AuthService.changePassword)
 }

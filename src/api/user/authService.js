@@ -2,6 +2,7 @@ const _ = require('lodash')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('./user')
+const nodemailer = require('nodemailer')
 
 const emailRegex = /\S+@\S+\.\S+/
 const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/
@@ -31,8 +32,39 @@ const login = (req, res, next) => {
   })
 }
 
-const hello = (req, res, next) => {
-  return res.status(200).send({ name: 'Hello!' })
+const changePassword = (req, res, next) => {
+  const email = req.body.email || ''
+
+  User.findOne({ email }, (err, user) => {
+    if (err) {
+      return sendErrorsFromDB(res, err)
+    } else if (user) {
+      const { name, email } = user
+      let testAccount = await nodemailer.createTestAccount();
+
+      let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: testAccount.user, // generated ethereal user
+          pass: testAccount.pass, // generated ethereal password
+        },
+      });
+
+      let info = await transporter.sendMail({
+        from: '"Fred Foo 👻" <foo@example.com>', // sender address
+        to: email, // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: "Hello world?", // plain text body
+        html: "<b>Hello world?</b>", // html body
+      });
+
+      res.json({ name, email })
+    } else {
+      return res.status(400).send({ errors: ['Usuário não encontrado!'] })
+    }
+  })
 }
 
 const validateToken = (req, res, next) => {
@@ -87,4 +119,4 @@ const signup = (req, res, next) => {
   })
 }
 
-module.exports = { login, signup, validateToken, hello }
+module.exports = { login, signup, validateToken, changePassword }
