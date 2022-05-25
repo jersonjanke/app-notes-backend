@@ -9,7 +9,6 @@ server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json())
 server.use(allowCors)
 server.use(queryParser())
-// server.use(express.static(path.join(__dirname + '/public')))
 
 const PORT = process.env.PORT || 8080
 server.listen(PORT, () => {
