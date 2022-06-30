@@ -2,6 +2,7 @@ const restful = require('node-restful')
 const mongoose = restful.mongoose
 
 const scoreSchema = new mongoose.Schema({
+  level: { type: Number, required: true },
   email: { type: String, required: true },
   score: { type: Number, required: true },
   life: { type: Number, required: true, default: 5 },
