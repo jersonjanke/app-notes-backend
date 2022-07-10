@@ -25,6 +25,7 @@ module.exports = (req, res, next) => {
     const userid = payload['sub'];
 
     if (userid) {
+      console.log('**** GOOGLE LOGIN ******', JSON.stringify(payload))
       next()
     } else {
       jwt.verify(token, process.env.SECRET, function (err, decoded) {
