@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { OAuth2Client } = require('google-auth-library')
-const client = new OAuth2Client(
-  '829625549487-m7dvtef9obacodq027b6j7eegt3p6oon.apps.googleusercontent.com'
-)
+const client = new OAuth2Client(process.env.CLIENT_ID)
 
 module.exports = (req, res, next) => {
   // CORS preflight request
@@ -19,8 +17,7 @@ module.exports = (req, res, next) => {
     client
       .verifyIdToken({
         idToken: token,
-        audience:
-          '829625549487-m7dvtef9obacodq027b6j7eegt3p6oon.apps.googleusercontent.com',
+        audience: process.env.CLIENT_ID,
       })
       .then((ticket) => {
         const payload = ticket.getPayload()
