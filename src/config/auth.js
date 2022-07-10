@@ -25,18 +25,19 @@ module.exports = (req, res, next) => {
 
         if (userid) {
           next()
-        } else {
-          jwt.verify(token, process.env.SECRET, function (err, decoded) {
-            if (err) {
-              return res.status(403).send({
-                errors: ['Failed to authenticate token.'],
-              })
-            } else {
-              // req.decoded = decoded
-              next()
-            }
-          })
         }
+      })
+      .catch(() => {
+        jwt.verify(token, process.env.SECRET, function (err, decoded) {
+          if (err) {
+            return res.status(403).send({
+              errors: ['Failed to authenticate token.'],
+            })
+          } else {
+            // req.decoded = decoded
+            next()
+          }
+        })
       })
   }
 }
